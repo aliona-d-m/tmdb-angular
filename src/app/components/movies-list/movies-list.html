@@ -1,0 +1,31 @@
+<div class="grid sm:grid-cols-3 md:grid-cols-4 grid-cols-2 sm:gap-4 gap-2 lg:max-w-10/12 mx-auto">
+  @if (loading()) { @for (_ of skeletons; track $index) {
+  <ng-container *ngTemplateOutlet="cardSkeleton"></ng-container>
+  } } @else { @for (movie of movies(); track $index) {
+  <app-movie-card [item]="movie" />
+  } @empty {
+  <div class="col-span-4 text-center text-xl m-8">
+    <p class="text-4xl">📽️</p>
+    <p class="mt-2 dark:text-slate-200/90">Sorry, nothing was found for your search.</p>
+    <p class="mt-2 dark:text-slate-200/90">Try another one!</p>
+  </div>
+  } }
+</div>
+
+@if (!loading() && movies().length) {
+<app-paging [page]="page()" [total]="totalPages()" />
+} @if (error()) {
+<p class="text-red">{{ error() }}</p>
+}
+
+<ng-template #cardSkeleton>
+  <div class="rounded p-2 bg-white/30 shadow">
+    <div class="w-full rounded aspect-2/3 bg-gray-500/40 animate-pulse"></div>
+    <div class="mt-1.5 rounded-full bg-gray-500/40 animate-pulse h-5"></div>
+    <div class="mt-0.5 rounded-full bg-gray-500/40 animate-pulse h-5"></div>
+    <div class="mt-1 rounded-full bg-gray-500/40 animate-pulse h-4.5"></div>
+    <div class="rounded-full bg-gray-500/40 animate-pulse h-4.5 mt-0.5"></div>
+    <div class="rounded-full bg-gray-500/40 animate-pulse h-4.5 mt-0.5"></div>
+    <div class="rounded-full bg-gray-500/40 animate-pulse h-4.5 mt-0.5"></div>
+  </div>
+</ng-template>

@@ -1,0 +1,27 @@
+<div class="flex gap-2 items-center rounded backdrop-blur-sm bg-white/30 dark:bg-slate-700/30 z-10">
+  <app-search-svg
+    class="absolute -z-1 left-1 w-4 h-4 text-black dark:text-slate-200"
+  ></app-search-svg>
+
+  <input
+    name="search"
+    type="text"
+    [formControl]="keyword"
+    placeholder="Search movies..."
+    class="text-base leading-4 font-normal w-full h-8 pl-8 rounded bg-transparent dark:text-white focus:outline-0 foucs:shadow-md"
+  />
+
+  @if (keyword.value) {
+  <button
+    (click)="clear()"
+    class="relative w-8 h-8 p-1 flex items-center justify-center cursor-pointer group"
+  >
+    <span
+      class="absolute w-4 h-0.5 bg-gray-500 dark:bg-gray-300 rotate-45 group-hover:bg-black dark:group-hover:bg-white transition"
+    ></span>
+    <span
+      class="absolute w-4 h-0.5 bg-gray-500 dark:bg-gray-300 -rotate-45 group-hover:bg-black dark:group-hover:bg-white transition"
+    ></span>
+  </button>
+  }
+</div>

@@ -1,0 +1,7 @@
+<h2
+  class="sm:text-3xl text-2xl sm:my-4 my-2 font-normal dark:text-slate-200 lg:max-w-10/12 mx-auto"
+>
+  {{ keyword() ? `Search Results for "${keyword()}"` : 'Popular Movies' }}
+</h2>
+
+<app-movies-list [page]="page() || 1" />

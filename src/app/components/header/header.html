@@ -1,0 +1,13 @@
+<div class="header sticky top-1 z-10 xl:max-w-10/12 mx-auto">
+  <div class="m-2 p-1 w-auto rounded backdrop-blur-md bg-white/30 dark:bg-slate-700/30">
+    <div class="flex z-1 gap-2 relative">
+      <div class="w-full">
+        <app-search-bar [value]="keyword() || ''" (search)="onSearch($event)"></app-search-bar>
+      </div>
+
+      <div>
+        <app-theme-switcher></app-theme-switcher>
+      </div>
+    </div>
+  </div>
+</div>

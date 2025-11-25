@@ -1,0 +1,14 @@
+<div class="relative bg-gray-800/20 overflow-hidden max-w-full" [ngClass]="img().class">
+  @if (!imgLoaded() || !img().src) {
+  <div class="absolute inset-0 animate-pulse bg-gray-400/20"></div>
+  }
+
+  <img
+    class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0"
+    loading="lazy"
+    [src]="img().src"
+    (load)="onImgLoad()"
+    [class.opacity-100]="imgLoaded()"
+    [alt]="img().alt || ''"
+  />
+</div>

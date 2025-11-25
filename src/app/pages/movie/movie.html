@@ -1,0 +1,130 @@
+@defer (when !loading()) {
+<div class="relative h-full z-1">
+  <div
+    class="absolute w-screen max-w-screen h-[40vh] sm:min-h-110 -inset-x-4 -top-23 bg-black -z-1 overflow-hidden"
+  >
+    <app-lazy-image
+      [img]="{
+        src: 'https://image.tmdb.org/t/p/original' + movie()?.backdrop_path,
+        class: 'w-screen h-full blur-xs opacity-30'
+      }"
+    ></app-lazy-image>
+  </div>
+
+  <div class="lg:max-w-10/12 mx-auto mt-4 sm:mt-6 md:mt-8">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl text-slate-100 font-bold">{{ movie()?.title }}</h1>
+
+    <div class="flex sm:flex-row flex-col mt-6 sm:mt-8 md:mt-12">
+      <app-lazy-image
+        [img]="{
+          src: 'https://image.tmdb.org/t/p/w342' + movie()?.poster_path,
+          class: 'shrink-0 w-[171px] h-[255px] rounded'
+        }"
+      ></app-lazy-image>
+
+      <div class="sm:text-gray-300 dark:text-gray-300 sm:ml-8 sm:mt-0 mt-4">
+        <div class="grid gap-6 grid-cols-2 text-base">
+          <div>
+            <p class="font-light md:text-3xl sm:text-2xl text-xl">Status:</p>
+            <p class="md:text-xl text-md mt-1">
+              {{ movie()?.status }}
+            </p>
+          </div>
+
+          <div>
+            <p class="font-light md:text-3xl sm:text-2xl text-xl">Release date:</p>
+            <p class="md:text-xl text-md mt-1">
+              {{ movie()?.release_date }}
+            </p>
+          </div>
+          <div>
+            <p class="font-light md:text-3xl sm:text-2xl text-xl">Rating:</p>
+            <p class="md:text-xl text-md mt-1">
+              {{ movie()?.vote_average }} ({{ movie()?.vote_count }})
+            </p>
+          </div>
+          <div>
+            <p class="font-light md:text-3xl sm:text-2xl text-xl">Genres:</p>
+            <div class="flex gap-1 flex-wrap">
+              @for (genre of movie()?.genres; let i = $index; let first = $first; track genre.id) {
+              <span class="md:text-xl text-md mt-1 flex gap-1 items-center">
+                <div class="flex gap-1">
+                  @if (!first) {
+                  <span class="text-md">•</span>
+                  }
+                  {{ genre.name }}
+                </div>
+              </span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-black dark:text-slate-200 mt-8">
+      <p class="font-light md:text-3xl sm:text-2xl text-xl">Overview:</p>
+      <p class="md:text-xl text-md mt-1">{{ movie()?.overview }}</p>
+    </div>
+  </div>
+</div>
+} @placeholder {
+<ng-container *ngTemplateOutlet="movieSkeleton"></ng-container>
+} @if (error()) {
+<p class="text-red-500">{{ error() }}</p>
+}
+
+<ng-template #movieSkeleton>
+  <div class="relative h-full z-1">
+    <div
+      class="absolute w-screen max-w-screen h-[40vh] sm:min-h-110 -inset-x-4 -top-23 bg-gray-500/40 animate-pulse -z-1"
+    ></div>
+
+    <div class="lg:max-w-10/12 mx-auto mt-4 sm:mt-6 md:mt-8">
+      <div class="h-8 sm:h-10 md:h-12 w-2/3 bg-gray-500/40 rounded animate-pulse"></div>
+
+      <div class="flex sm:flex-row flex-col mt-6 sm:mt-8 md:mt-12">
+        <div class="shrink-0 w-[171px] h-[255px] bg-gray-500/40 rounded animate-pulse"></div>
+
+        <div class="sm:ml-8 sm:mt-0 mt-4 flex-1">
+          <div class="grid gap-6 grid-cols-2 text-base">
+            <div>
+              <div class="h-6 w-24 bg-gray-500/40 rounded animate-pulse"></div>
+              <div class="h-5 w-32 bg-gray-500/40 rounded mt-2 animate-pulse"></div>
+            </div>
+
+            <div>
+              <div class="h-6 w-36 bg-gray-500/40 rounded animate-pulse"></div>
+              <div class="h-5 w-28 bg-gray-500/40 rounded mt-2 animate-pulse"></div>
+            </div>
+
+            <div>
+              <div class="h-6 w-24 bg-gray-500/40 rounded animate-pulse"></div>
+              <div class="h-5 w-20 bg-gray-500/40 rounded mt-2 animate-pulse"></div>
+            </div>
+
+            <div>
+              <div class="h-6 w-24 bg-gray-500/40 rounded animate-pulse"></div>
+
+              <div class="flex gap-2 flex-wrap mt-2">
+                <div class="h-5 w-14 bg-gray-500/40 rounded-full animate-pulse"></div>
+                <div class="h-5 w-16 bg-gray-500/40 rounded-full animate-pulse"></div>
+                <div class="h-5 w-10 bg-gray-500/40 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="h-6 w-28 bg-gray-500/40 rounded animate-pulse"></div>
+
+        <div class="space-y-2 mt-3">
+          <div class="h-5 w-full bg-gray-500/40 rounded animate-pulse"></div>
+          <div class="h-5 w-full bg-gray-500/40 rounded animate-pulse"></div>
+          <div class="h-5 w-5/6 bg-gray-500/40 rounded animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
